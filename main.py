@@ -11,6 +11,7 @@ load_dotenv()
 from config import FRAZY_DDGO
 from scrapers.duckduckgo import szukaj_ddgo
 from bot.telegram_bot import wyslij_leady
+from dashboard import generuj_dashboard
 
 
 def drukuj_leady(leady: list[dict], naglowek: str):
@@ -28,6 +29,8 @@ def drukuj_leady(leady: list[dict], naglowek: str):
 
 
 def main():
+    ci_mode = "--ci" in sys.argv or os.getenv("CI") == "true"
+
     print(f"\n=== KuchniaHACCP Lead Monitor === {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("Szukam potencjalnych klientow...\n")
 
@@ -43,6 +46,9 @@ def main():
     if wszystkie:
         print("\nWysylam do Telegrama...")
         wyslij_leady(wszystkie)
+
+    print("\nGeneruje dashboard...")
+    generuj_dashboard(wszystkie)
 
     print("\n[OK] Gotowe!\n")
 
