@@ -8,8 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="repla
 
 load_dotenv()
 
-from config import FRAZY_DDGO, OLX_ZAPYTANIA
-from scrapers.olx import szukaj_olx
+from config import FRAZY_DDGO
 from scrapers.duckduckgo import szukaj_ddgo
 from bot.telegram_bot import wyslij_leady
 
@@ -32,15 +31,11 @@ def main():
     print(f"\n=== KuchniaHACCP Lead Monitor === {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("Szukam potencjalnych klientow...\n")
 
-    print("[1/2] Przeszukuje OLX...")
-    leady_olx = szukaj_olx(OLX_ZAPYTANIA)
-    drukuj_leady(leady_olx, "OLX")
-
-    print("\n[2/2] Przeszukuje web (DuckDuckGo)...")
+    print("[1/1] Przeszukuje web (DuckDuckGo)...")
     leady_ddgo = szukaj_ddgo(FRAZY_DDGO)
     drukuj_leady(leady_ddgo, "Web / DuckDuckGo")
 
-    wszystkie = leady_olx + leady_ddgo
+    wszystkie = leady_ddgo
     print(f"\n{'='*60}")
     print(f"  RAZEM znaleziono: {len(wszystkie)} potencjalnych leadow")
     print(f"{'='*60}")

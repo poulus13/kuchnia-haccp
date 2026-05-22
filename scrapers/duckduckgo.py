@@ -1,9 +1,44 @@
 from ddgs import DDGS
 from datetime import datetime, timedelta
-from config import ETYKIETY_LEADOW
+from config import SYGNALY_POTRZEBY, SYGNALY_TEMATU, SLOWA_OFERTY
+from urllib.parse import urlparse
 import re
 
 MAX_WIEK_DNI = 14
+
+BLACKLISTA_DOMEN = [
+    "goldenline.pl",
+    "kafeteria.pl",
+    "jbzd.com.pl",
+    "wloski.ang.pl",
+    "wikipedia.org",
+    "wikipedia.com",
+    "allmo.pl",
+    "tanake.com.pl",
+    "restobusiness.pl",
+    "agusto.pl",
+    "niepoddawajsie.pl",
+    "lsi-lublin.pl",
+    "bhpomocnik.pl",
+    "goga-gastro.pl",
+    "franchising.pl",
+    "praca-biznes.pl",
+    "englishmyway.pl",
+    "marketing-arlek.pl",
+    "wizaz.pl",
+    "samequizy.pl",
+]
+
+
+def _czy_pl(link: str) -> bool:
+    try:
+        domena = urlparse(link).netloc.lower().removeprefix("www.")
+        # sprawdź blacklistę — obsługuje też subdomeny (f.kafeteria.pl)
+        if any(domena == b or domena.endswith("." + b) for b in BLACKLISTA_DOMEN):
+            return False
+        return domena.endswith(".pl")
+    except Exception:
+        return False
 
 
 def szukaj_ddgo(frazy: list[str], max_na_fraze: int = 5) -> list[dict]:
@@ -20,6 +55,8 @@ def szukaj_ddgo(frazy: list[str], max_na_fraze: int = 5) -> list[dict]:
                     link = w.get("href", "")
                     if link in seen:
                         continue
+                    if not _czy_pl(link):
+                        continue
                     seen.add(link)
                     tytul = w.get("title", "")
                     opis = w.get("body", "")
@@ -29,7 +66,8 @@ def szukaj_ddgo(frazy: list[str], max_na_fraze: int = 5) -> list[dict]:
                     if data and data < granica:
                         continue
 
-                    if _czy_lead(tytul + " " + opis):
+                    tekst = tytul + " " + opis
+                    if _czy_lead(tekst) and not _czy_oferta(tekst):
                         leady.append({
                             "zrodlo": "Web",
                             "tytul": tytul,
@@ -43,8 +81,15 @@ def szukaj_ddgo(frazy: list[str], max_na_fraze: int = 5) -> list[dict]:
 
 
 def _czy_lead(tekst: str) -> bool:
+    t = tekst.lower()
+    ma_potrzebe = any(s in t for s in SYGNALY_POTRZEBY)
+    ma_temat = any(s in t for s in SYGNALY_TEMATU)
+    return ma_potrzebe and ma_temat
+
+
+def _czy_oferta(tekst: str) -> bool:
     tekst_lower = tekst.lower()
-    return any(etk in tekst_lower for etk in ETYKIETY_LEADOW)
+    return any(s in tekst_lower for s in SLOWA_OFERTY)
 
 
 def _wyciagnij_date(tekst: str) -> tuple[str | None, datetime | None]:
