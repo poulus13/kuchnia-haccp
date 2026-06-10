@@ -10,8 +10,10 @@ load_dotenv()
 
 from config import FRAZY_DDGO
 from scrapers.duckduckgo import szukaj_ddgo
+from scrapers.facebook import szukaj_facebook
 from bot.telegram_bot import wyslij_leady
 from dashboard import generuj_dashboard
+from historia import zaladuj_widziane, zapisz_widziane
 
 
 def drukuj_leady(leady: list[dict], naglowek: str):
@@ -34,21 +36,38 @@ def main():
     print(f"\n=== KuchniaHACCP Lead Monitor === {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print("Szukam potencjalnych klientow...\n")
 
-    print("[1/1] Przeszukuje web (DuckDuckGo)...")
+    widziane = zaladuj_widziane()
+    print(f"[Historia] Zaladowano {len(widziane)} znanych linkow.\n")
+
+    print("[1/2] Przeszukuje Facebook (przez DDG)...")
+    leady_fb = szukaj_facebook()
+    drukuj_leady(leady_fb, "Facebook / DDG")
+
+    print("[2/2] Przeszukuje web (DuckDuckGo)...")
     leady_ddgo = szukaj_ddgo(FRAZY_DDGO)
     drukuj_leady(leady_ddgo, "Web / DuckDuckGo")
 
-    wszystkie = leady_ddgo
+    wszystkie = leady_fb + leady_ddgo
+
+    # Filtruj leady już wcześniej wysłane
+    nowe = [l for l in wszystkie if l["link"] not in widziane]
+    duplikaty = len(wszystkie) - len(nowe)
+
     print(f"\n{'='*60}")
-    print(f"  RAZEM znaleziono: {len(wszystkie)} potencjalnych leadow")
+    print(f"  Znaleziono: {len(wszystkie)} | Nowe: {len(nowe)} | Pominiete (juz widziane): {duplikaty}")
     print(f"{'='*60}")
 
-    if wszystkie:
+    if nowe:
         print("\nWysylam do Telegrama...")
-        wyslij_leady(wszystkie)
+        wyslij_leady(nowe)
+        widziane.update(l["link"] for l in nowe)
+        zapisz_widziane(widziane)
+        print(f"  [Historia] Zapisano {len(widziane)} linkow.")
+    else:
+        print("\nBrak nowych leadow do wyslania.")
 
     print("\nGeneruje dashboard...")
-    generuj_dashboard(wszystkie)
+    generuj_dashboard(nowe)
 
     print("\n[OK] Gotowe!\n")
 

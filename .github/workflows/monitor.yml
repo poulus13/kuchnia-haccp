@@ -5,6 +5,9 @@ on:
     - cron: "0 6,18 * * *"   # 06:00 i 18:00 UTC (08:00 i 20:00 PL)
   workflow_dispatch:           # możliwość ręcznego uruchomienia
 
+permissions:
+  contents: write
+
 jobs:
   run-monitor:
     runs-on: ubuntu-latest
@@ -26,10 +29,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py --ci
 
-      - name: Commit dashboard
+      - name: Commit dashboard i historia
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html leads.json
-          git diff --cached --quiet || git commit -m "chore: update dashboard [skip ci]"
+          git add docs/index.html leads.json seen_links.json
+          git diff --cached --quiet || git commit -m "chore: update dashboard + historia [skip ci]"
           git push

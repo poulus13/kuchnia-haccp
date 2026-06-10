@@ -1,6 +1,7 @@
 # Progress projektu — KuchniaHACCP
 
 ## Zrobione
+- [2026-06-10] Wznowienie projektu — przegląd stanu, weryfikacja git, aktualizacja dziennika
 - [2026-05-22] Konfiguracja środowiska pracy Claude Code
 - [2026-05-22] Zainstalowano claude-mem i Python 3.12
 - [2026-05-22] Utworzono pliki kontekstowe: PROFILE, CONTEXT, TECHSTACK, PROGRESS, WORKFLOW, ENDWORK

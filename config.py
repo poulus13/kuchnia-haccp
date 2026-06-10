@@ -1,3 +1,25 @@
+FRAZY_FACEBOOK = [
+    # Pytania w grupach — ktoś otwiera lokal i pyta o formalności
+    'site:facebook.com/groups "otwieramy restaurację" haccp',
+    'site:facebook.com/groups "otwieram restaurację" sanepid',
+    'site:facebook.com/groups "otwieramy lokal" dokumentacja',
+    'site:facebook.com/groups "otwieram lokal" sanepid',
+    'site:facebook.com/groups "otwieram bar" haccp',
+    'site:facebook.com/groups "otwieramy kawiarnię" sanepid',
+    # Bezpośrednie pytania o HACCP
+    'site:facebook.com/groups "kto zrobi haccp"',
+    'site:facebook.com/groups "szukam kogoś do haccp"',
+    'site:facebook.com/groups "potrzebuję haccp" lokal',
+    'site:facebook.com/groups "haccp" "szukam" restauracja',
+    # Projekt technologiczny i odbiór
+    'site:facebook.com/groups "projekt technologiczny kuchni" szukam',
+    'site:facebook.com/groups "odbiór sanepid" pomoc',
+    'site:facebook.com/groups "projekt technologiczny" "potrzebuję"',
+    # Znane grupy gastronomiczne
+    'site:facebook.com "Gastronomia bez tajemnic" haccp szukam',
+    'site:facebook.com "otwieramy restaurację" "haccp" "szukam"',
+]
+
 FRAZY_DDGO = [
     # Pytania na forach — ktoś szuka pomocy
     "site:forum.gastro.pl otwieramy lokal",
