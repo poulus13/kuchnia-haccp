@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "zrodlo": "Web",
+    "tytul": "Wyposażenie - otwieram lokal - tylko dowóz - Forum Gastronomiczne",
+    "link": "http://www.forumgastronomiczne.pl/forum/temat_1722",
+    "opis": "Cześć, proszę o wsparcie doświadczonych w tym zakresie osób. Otwieram lokal - potrzebuję informacji jaki sprzęt kupić - takie wymagane minimum.",
+    "data": "?"
+  },
+  {
+    "zrodlo": "Web",
+    "tytul": "Otwieramy lokal gastronomiczny krok po kroku... - komercyjnie.pl",
+    "link": "https://komercyjnie.pl/otwieramy-lokal-gastronomiczny-krok-po-kroku-przewodnik/",
+    "opis": "Potem musisz zarejestrować lokal jako obiekt gastronomiczny – uzyskać odpowiednie zgody sanepidu, Urzędu Miasta czy Straży Pożarnej. Krok 5: Właściwe wyposażenie i rekrutacja personelu. Czas na zakupy",
+    "data": "?"
+  }
+]
