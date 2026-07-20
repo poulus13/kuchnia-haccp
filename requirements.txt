@@ -1,6 +1,0 @@
-requests
-beautifulsoup4
-feedparser
-ddgs
-python-telegram-bot==20.7
-python-dotenv

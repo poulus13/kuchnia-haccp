@@ -2,6 +2,10 @@
 
 ## Zrobione
 - [2026-06-10] Wznowienie projektu — przegląd stanu, weryfikacja git, aktualizacja dziennika
+- [2026-06-11] Historia leadów — deduplikacja między runami (seen_links.json + monitor.yml)
+- [2026-06-11] Scraper Facebook przez DDG (scrapers/facebook.py) — daje 0 wyników (FB za loginem)
+- [2026-06-11] Ręczne dodawanie leadów z FB — dodaj_lead.py
+- [2026-06-11] Plakat FB — plakat_nowy.html w stylu złoto/czerń + wycięte logo (logo.png)
 - [2026-05-22] Konfiguracja środowiska pracy Claude Code
 - [2026-05-22] Zainstalowano claude-mem i Python 3.12
 - [2026-05-22] Utworzono pliki kontekstowe: PROFILE, CONTEXT, TECHSTACK, PROGRESS, WORKFLOW, ENDWORK
@@ -20,8 +24,12 @@
 
 ## Do zrobienia
 ### Priorytet — Telegram
-- [ ] Zebrać Telegram Bot Token od Pawła i wpisać do .env (lokalnie) + GitHub Secret (Actions)
+- [ ] Zebrać Telegram Bot Token od Pawła (konto odblokowane) → wpisać do .env + GitHub Secret
 - [ ] Przetestować wysyłkę przez Telegram
+
+### Plakat FB
+- [ ] Ocenić plakat_nowy.html w przeglądarce i wprowadzić poprawki
+- [ ] Zrzut ekranu do PNG → gotowy do publikacji na FB
 
 ### Ulepszenia scrapera
 - [ ] Dodać więcej fraz DDG — szukać na innych forach (gastrona.pl, reddit.pl, grupy FB przez Apify)

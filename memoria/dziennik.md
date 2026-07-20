@@ -27,3 +27,16 @@
 1. Zacommitować `memoria/` i `.env.example`
 2. Token Telegram od Pawła → test wysyłki
 3. Historia leadów — nie wysyłać dwa razy tego samego linka
+
+## [2026-06-11] — Sesja: historia leadów + plakat FB
+- Naprawiono deduplikację leadów — historia.py + seen_links.json, commitowany po każdym runie w CI
+- Scraper Facebook przez DDG daje 0 wyników — FB blokuje indeksowanie grup
+- Dodano dodaj_lead.py — ręczne wpisywanie leadów z FB do systemu
+- Omówiono Apify ($5 gratis) — zrezygnowano, wymaga rejestracji
+- Stworzono plakat_nowy.html (złoto/czerń) + wycięto logo.png z wzorcowego plakatu
+- Commit i push fc2f7da na GitHub
+
+### Następna sesja — priorytety:
+1. Token Telegram od Pawła (konto w trakcie odblokowania) → test wysyłki
+2. Poprawki plakatu → zrzut ekranu → publikacja na FB
+3. Przetestować dodaj_lead.py z prawdziwym postem z grupy FB
